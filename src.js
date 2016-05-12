@@ -15,16 +15,18 @@ window.onload = function()
         }
 
     //global
+    /*
+		function stepByStep(){
+			m_echec.solve();
+    	setTimeout(stepByStep, 1000);
+		}
+		stepByStep();*/
+
     var width = 8, height = 8, space = 1, size = 60;
 
-		m_echec = new Echec(width, height, space, size);
+		m_echec = new Echec(width, height, space, size, context);
 		m_echec.init();
-		function yourFunction(){
-			m_echec.solve(context);
-    	setTimeout(yourFunction, 1000);
-		}
-		yourFunction();
-		m_echec.removeQueen(0, 0);
+		m_echec.solve();
 		m_echec.print();
 
 }
