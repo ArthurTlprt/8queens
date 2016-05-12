@@ -47,11 +47,10 @@ var Echec = class {
 
 	solveRec(x){
 		this.print();
-		if (this.queensPlaced < 5) {
-			if(this.backtrack[x].length != 8){
-				var possibleSol = this.getPossibleSol(x);			// contains all y that can be solution
-				console.log(x);
-				console.log('possibleSol[possibleSol.length-1]', possibleSol[possibleSol.length-1]);
+		if (this.queensPlaced < 1) {
+			var possibleSol = this.getPossibleSol(x);			// contains all y that can be solution
+			if( (this.backtrack[x].length - possibleSol.length)!= 0 ){
+				if(this.backtrack[x].length != 0){this.removeQueen(this.backtrack[x].pop());}
 				this.setQueen(x, possibleSol[possibleSol.length-1]);	// place a queen in a possible solution
 				this.backtrack[x].push(possibleSol.pop());		// tell to the bactrack that we give it a try
 				this.solveRec(x+1);	// then test the next one
@@ -98,9 +97,12 @@ var Echec = class {
 			this.land[y+a][x+a].threat = true;
 			this.land[y+a][x+a].color = "rgb(215, 15, 45)";
 		}
+		this.debug(x, y);
 	}
 
 	removeQueen(x, y){
+		x = parseInt(x);
+		y = parseInt(y);
 		this.queensPlaced--;
 		this.land[y][x].free = true;
 		this.land[y][x].color = 'rgb(36, 96, 213)';
@@ -131,8 +133,8 @@ var Echec = class {
 		}
 	}
 
-	debug(){
-		console.log(JSON.parse(JSON.stringify(this.land[2][2])));
+	debug(i, j){
+		console.log(JSON.parse(JSON.stringify(this.land[i][j], null, 4)));
 	}
 
 };

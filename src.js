@@ -15,22 +15,16 @@ window.onload = function()
         }
 
     //global
-    /*
-		function stepByStep(){
-			m_echec.solve();
-    	setTimeout(stepByStep, 1000);
-		}
-		stepByStep();*/
 
     var width = 8, height = 8, space = 1, size = 60;
 
 		m_echec = new Echec(width, height, space, size, context);
 		m_echec.init();
 		m_echec.solve();
-		for(var i=0; i < width; ++i){
-			console.log(m_echec.getPossibleSol(i));
-		}
+		//m_echec.setQueen(0, 0);
 		m_echec.print();
+
+		//console.log(JSON.stringify(m_echec.land[7][0], null, 4));
 
 
 }
