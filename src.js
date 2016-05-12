@@ -27,6 +27,10 @@ window.onload = function()
 		m_echec = new Echec(width, height, space, size, context);
 		m_echec.init();
 		m_echec.solve();
+		for(var i=0; i < width; ++i){
+			console.log(m_echec.getPossibleSol(i));
+		}
 		m_echec.print();
+
 
 }

@@ -25,10 +25,11 @@ var Echec = class {
 	getPossibleSol(a){
 		var tab = [];
 		for(var i in this.land[a]){
-			if(this.land[a][i].threat == false && this.land[a][i].free == true)
+			if(this.land[a][i].threat == false && this.land[a][i].free == true){
 				tab.push(i);
-			return tab;
+			}
 		}
+		return tab;
 	}
 
 
@@ -45,39 +46,30 @@ var Echec = class {
 	}
 
 	solveRec(x){
+		this.print();
 		if (this.queensPlaced < 5) {
 			if(this.backtrack[x].length != 8){
-				possibleSol = this.getPossibleSol(x);
-				this.setQueen(possibleSol[possibleSol.length-1]);
-				this.backtrack[x].push(possibleSol.pop());
-				this.solveRec(x+1);
+				var possibleSol = this.getPossibleSol(x);			// contains all y that can be solution
+				console.log(x);
+				console.log('possibleSol[possibleSol.length-1]', possibleSol[possibleSol.length-1]);
+				this.setQueen(x, possibleSol[possibleSol.length-1]);	// place a queen in a possible solution
+				this.backtrack[x].push(possibleSol.pop());		// tell to the bactrack that we give it a try
+				this.solveRec(x+1);	// then test the next one
 			}else {
-				this.backtrack[x] = [];
-				this.solveRec(x-1);
+				this.backtrack[x] = [];		// we stop everything
+				this.solveRec(x-1);		// and change the place of the previous queen
 			}
 		}
 	}
 
 	solve(){
-		solveRec(0);
-	}
-/*
-	placeOne(){
-		for(var i in this.land){
-			for(var j in this.land[i]){
-				if(this.land[i][j].threat == false && this.land[i][j].free == true){
-					setTimeout(this.setQueen(parseInt(j), parseInt(i)), 1000);
-					return;
-				}
-			}
-		}
-	}
-*/
-	threat(x, y){
-
+		this.solveRec(0);
 	}
 
 	setQueen(x, y){
+		console.log('(x, y)', x, y);
+		x = parseInt(x);
+		y = parseInt(y);
 		this.queensPlaced++;
 		this.land[x][y].free = false;
 		this.land[x][y].color = 'rgb(39, 201, 19)';
